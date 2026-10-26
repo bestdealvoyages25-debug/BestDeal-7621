@@ -1,0 +1,171 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-ink: #0b0a08;
+  --color-night: #14110d;
+  --color-coal: #1f1a14;
+  --color-gold: #c89b3c;
+  --color-gold-soft: #e7c878;
+  --color-terracotta: #b65a32;
+  --color-cream: #fbf7f0;
+  --color-sand: #efe4d2;
+  --color-clay: #8a7a66;
+  --color-ink-soft: #6e6459;
+  --font-display: "Marcellus", "Times New Roman", serif;
+  --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: #ffffff;
+  --foreground: #1c1814;
+  --card: #ffffff;
+  --card-foreground: #1c1814;
+  --popover: #ffffff;
+  --popover-foreground: #1c1814;
+  --primary: #c89b3c;
+  --primary-foreground: #0b0a08;
+  --secondary: #efe4d2;
+  --secondary-foreground: #1c1814;
+  --muted: #f5f0e8;
+  --muted-foreground: #6e6459;
+  --accent: #efe4d2;
+  --accent-foreground: #1c1814;
+  --destructive: #b3261e;
+  --border: #e6ddcd;
+  --input: #e6ddcd;
+  --ring: #c89b3c;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white text-[#1c1814] font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    color: #1c1814;
+    line-height: 1.15;
+  }
+  ::selection {
+    background: #c89b3c;
+    color: #0b0a08;
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 1024px) {
+    .container-x {
+      padding-inline: 40px;
+    }
+  }
+
+  .label-gold {
+    @apply font-sans font-medium uppercase text-gold;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 bg-gold px-6 py-3 font-sans text-[13px] font-medium uppercase text-ink transition-all duration-300 hover:bg-gold-soft;
+    letter-spacing: 0.14em;
+  }
+
+  .btn-ghost-gold {
+    @apply inline-flex items-center justify-center gap-2 border border-gold/70 px-6 py-3 font-sans text-[13px] font-medium uppercase text-gold-soft transition-all duration-300 hover:bg-gold hover:text-ink;
+    letter-spacing: 0.14em;
+  }
+
+  .field {
+    @apply w-full border border-border bg-white px-4 py-3 font-sans text-[15px] text-[#1c1814] outline-none transition-colors placeholder:text-clay/70 focus:border-gold;
+  }
+
+  .card-hairline {
+    box-shadow: 0 1px 0 0 rgba(200, 155, 60, 0.35);
+  }
+}
+
+/* --- Animations --- */
+@keyframes bdv-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bdv-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.is-visible {
+  animation: bdv-fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-media {
+  animation: bdv-zoom 8s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    animation: none;
+  }
+  .hero-media {
+    animation: none;
+  }
+}
